@@ -81,8 +81,11 @@ jobs:
           - Internet access is only needed for update checks and downloads
           EOF
           sed -i "s/__VERSION__/${VERSION}/g; s/__TAG_NAME__/${TAG_NAME}/g" release_body.md
-          body=$(cat release_body.md | jq -Rs .)
-          echo "body=${body}" >> $GITHUB_OUTPUT
+          {
+            echo 'body<<EOF'
+            cat release_body.md
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create Release
         id: create_release
