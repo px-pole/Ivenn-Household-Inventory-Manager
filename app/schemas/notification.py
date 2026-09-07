@@ -13,6 +13,7 @@ class NotificationRead(BaseModel):
     title: str
     message: str
     is_read: bool
+    is_dismissed: bool
     created_at: datetime
 
 

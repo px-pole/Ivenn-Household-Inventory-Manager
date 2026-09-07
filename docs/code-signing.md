@@ -104,7 +104,7 @@ The app uses Tauri's built-in updater for automatic updates. This requires signi
    ```json
    "updater": {
      "endpoints": [
-       "https://api.github.com/repos/YOUR_ORG/inventory-vault/releases/latest"
+      "https://api.github.com/repos/px-pole/Ivenn-Household-Inventory-Manager/releases/latest"
      ]
    }
    ```
@@ -154,8 +154,8 @@ Code signing only matters for official releases distributed to users.
 
 To verify signing works:
 
-1. Push a tag: `git tag v0.1.21 && git push --tags`
-2. Check the [Actions](https://github.com/your-org/inventory-vault/actions) tab
+1. Push a tag: `git tag v0.2.0 && git push --tags`
+2. Check the [Actions](https://github.com/px-pole/Ivenn-Household-Inventory-Manager/actions) tab
 3. Review the draft release
 4. Verify files are present and have signatures where enabled
 5. Publish the release

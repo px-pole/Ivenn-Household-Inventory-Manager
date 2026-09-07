@@ -58,6 +58,7 @@ pnpm-debug.log*
 # IDE
 .vscode/
 .idea/
+AGENTS.md
 
 # OS
 .DS_Store

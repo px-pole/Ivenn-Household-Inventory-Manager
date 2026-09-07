@@ -113,6 +113,27 @@ def test_extract_attachment_returns_structured_suggestions(client, db_session, s
     assert response.json()["estimated_value"]["value"] == "49.99"
 
 
+def test_preview_receipt_extraction_does_not_store_a_file(client, storage_dir, monkeypatch):
+    from app.schemas.attachment import ReceiptExtractionRead, ReceiptFieldSuggestion
+
+    monkeypatch.setattr(
+        "app.api.routes.attachments.extract_receipt",
+        lambda path, mime_type: ReceiptExtractionRead(
+            raw_text="Example Store\nTOTAL 49.99",
+            estimated_value=ReceiptFieldSuggestion(value="49.99", confidence=0.88, evidence="TOTAL 49.99"),
+        ),
+    )
+
+    response = client.post(
+        "/attachments/extract",
+        files={"file": ("receipt.png", b"image-bytes", "image/png")},
+    )
+
+    assert response.status_code == 200
+    assert response.json()["estimated_value"]["value"] == "49.99"
+    assert list(storage_dir.iterdir()) == []
+
+
 def test_extract_pdf_returns_415(client, db_session, storage_dir):
     item_id = _create_item(client, db_session)
     attachment = client.post(

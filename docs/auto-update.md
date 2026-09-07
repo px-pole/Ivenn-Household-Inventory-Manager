@@ -30,7 +30,7 @@ Ivenn uses Tauri's built-in updater to automatically check for and install new v
      "dialog": true,
      "pubkey": "YOUR_PUBLIC_KEY_HERE",
      "endpoints": [
-       "https://api.github.com/repos/YOUR_ORG/inventory-vault/releases/latest"
+      "https://api.github.com/repos/px-pole/Ivenn-Household-Inventory-Manager/releases/latest"
      ]
    }
    ```
@@ -49,7 +49,7 @@ Ivenn uses Tauri's built-in updater to automatically check for and install new v
 
 The `.github/workflows/release.yml` handles:
 
-1. **Detects version tags:** `git tag v0.1.21`
+1. **Detects version tags:** `git tag v0.2.0`
 2. **Builds on all platforms** with signing
 3. **Signs artifacts** using the private key
 4. **Creates GitHub release** with `latest` tag

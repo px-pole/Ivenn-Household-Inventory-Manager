@@ -17,17 +17,17 @@ Version is defined in two places:
 
 1. **Python backend** - `pyproject.toml`:
    ```toml
-   version = "0.1.21"
+   version = "0.2.0"
    ```
 
 2. **Desktop app** - `desktop/src-tauri/tauri.conf.json`:
    ```json
-   "version": "0.1.21"
+   "version": "0.2.0"
    ```
 
 3. **Node package** - `desktop/package.json`:
    ```json
-   "version": "0.1.21"
+   "version": "0.2.0"
    ```
 
 All three must match the git tag exactly.
@@ -57,22 +57,22 @@ npm version patch
 
 # Commit version bump
 git add pyproject.toml desktop/package.json desktop/src-tauri/tauri.conf.json
-git commit -m "chore: bump version to 0.1.21"
+git commit -m "chore: bump version to 0.2.0"
 
 # Create tag
-git tag -a v0.1.21 -m "Release v0.1.21"
+git tag -a v0.2.0 -m "Release v0.2.0"
 
 # Push commits and tag
 git push origin main
-git push origin v0.1.21
+git push origin v0.2.0
 ```
 
 ### Method 2: GitHub Release UI
 
-1. Go to [Releases](https://github.com/your-org/inventory-vault/releases)
+1. Go to [Releases](https://github.com/px-pole/Ivenn-Household-Inventory-Manager/releases)
 2. Click "Draft a new release"
-3. Tag: `v0.1.21` (must match versions in config)
-4. Title: "Ivenn v0.1.21"
+3. Tag: `v0.2.0` (must match versions in config)
+4. Title: "Ivenn v0.2.0"
 5. Click "Auto-generate release notes"
 6. Save as draft first
 

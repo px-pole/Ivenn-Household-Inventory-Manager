@@ -1,12 +1,21 @@
+<p align="center">
+	<img src="desktop/public/branding/ivenn-dark.png" alt="Ivenn" width="160">
+</p>
+
 # Ivenn Inventory Vault
 
 Ivenn is a private, desktop-first household inventory and warranty tracker for recording possessions, receipts, serial numbers, and replacement values. It helps households prepare insurance-ready exports and avoid missed warranty expirations.
+
+<p align="center">
+	<img src="docs/images/inventory-items-demo.png" alt="Ivenn inventory items view with sample household records" width="900">
+</p>
 
 ## Features
 
 - Inventory and room/category management
 - Search and filtering by room, category, warranty state, and text
-- Attachment uploads for receipts and item photos
+- Attachment uploads for receipts, item photos, and warranty documents
+- Local receipt OCR suggestions during item creation, with review before applying values
 - Warranty creation and upcoming-expiry tracking
 - CSV and PDF inventory exports
 - Persistent in-app warranty reminders
@@ -25,7 +34,7 @@ Ivenn is a private, desktop-first household inventory and warranty tracker for r
 
 ### Quick Install
 
-Download the installer for your platform from [releases](https://github.com/your-org/inventory-vault/releases):
+Download the installer for your platform from [releases](https://github.com/px-pole/Ivenn-Household-Inventory-Manager/releases):
 
 - **Windows:** Run the `.exe` installer — WebView2 is usually pre-installed on modern Windows
 - **macOS:** Open the `.dmg` file and drag Ivenn to Applications
@@ -155,7 +164,7 @@ npm run tauri build
 
 Build outputs use the native format for the current platform: Windows installers (`.exe`), macOS app bundles/DMG, and Linux AppImage. Linux AppImages are written under `desktop/src-tauri/target/release/bundle/appimage/`.
 
-Builds are created automatically by CI/CD when you push a version tag (e.g., `git tag v0.1.21 && git push --tags`). Artifacts are attached to the GitHub release and signed where supported.
+Builds are created automatically by CI/CD when you push a version tag (e.g., `git tag v0.2.0 && git push --tags`). Artifacts are attached to the GitHub release and signed where supported.
 
 ### Notes on Features
 

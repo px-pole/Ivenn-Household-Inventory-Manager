@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.routes.attachments import preview_router as attachment_preview_router
 from app.api.routes.attachments import router as attachments_router
 from app.api.routes.auth import router as auth_router
 from app.api.routes.categories import router as categories_router
@@ -17,11 +18,10 @@ app = FastAPI(title=settings.app_name)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
         "http://tauri.localhost",
         "tauri://localhost",
     ],
+    allow_origin_regex=r"^http://(localhost|127\.0\.0\.1):\d+$",
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -31,6 +31,7 @@ app.include_router(auth_router)
 app.include_router(rooms_router)
 app.include_router(categories_router)
 app.include_router(items_router)
+app.include_router(attachment_preview_router)
 app.include_router(attachments_router)
 app.include_router(warranties_router)
 app.include_router(reports_router)
@@ -43,6 +44,7 @@ for router in (
     rooms_router,
     categories_router,
     items_router,
+    attachment_preview_router,
     attachments_router,
     warranties_router,
     reports_router,

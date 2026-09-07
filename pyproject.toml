@@ -1,13 +1,13 @@
 [project]
 name = "inventory-vault"
-version = "0.1.21"
+version = "0.2.0"
 description = "Household Inventory & Warranty Vault"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.141",
     "uvicorn[standard]>=0.52",
     "sqlalchemy>=2.0.52",
-    "alembic>=1.19",
+    "alembic>=1.19.2",
     "psycopg[binary]>=3.3",
     "pydantic-settings>=2.15",
     "python-multipart>=0.0.32",

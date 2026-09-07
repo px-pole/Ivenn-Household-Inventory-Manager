@@ -52,6 +52,16 @@ The server generates storage names. Client filenames are display metadata only a
 
 ## Receipt extraction
 
+Before an item is created, the desktop client may request suggestions from a receipt
+image without persisting the file:
+
+```text
+POST /api/v1/attachments/extract
+```
+
+The client must show the suggestions for review and apply them only after the user
+confirms. The selected media is uploaded only after the item has been created.
+
 Request structured suggestions from an uploaded receipt image:
 
 ```text

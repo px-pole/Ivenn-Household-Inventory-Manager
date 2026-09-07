@@ -33,6 +33,7 @@ def test_versioned_notification_inbox_read_and_dismiss(client, db_session):
 
     response = client.patch(f"/api/v1/notifications/{notification['id']}", json={"is_dismissed": True})
     assert response.status_code == 200
+    assert response.json()["is_dismissed"] is True
     assert client.get("/api/v1/notifications").json() == []
 
 

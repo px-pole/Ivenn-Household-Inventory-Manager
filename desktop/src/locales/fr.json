@@ -16,6 +16,17 @@
   "header.search": "Rechercher l'inventaire",
   "header.notifications": "Notifications in-app",
   "settings.language": "Choisir la langue",
+  "action.close": "Fermer",
+
+  "about.eyebrow": "À propos de l'application",
+  "about.title": "À propos",
+  "about.version": "Version",
+  "about.privacy": "Vos données d'inventaire sont stockées localement sur cet appareil. Rien n'est envoyé à des serveurs externes.",
+  "about.repository": "Dépôt GitHub",
+  "about.reportIssue": "Signaler un problème",
+  "about.checkUpdates": "Rechercher des mises à jour",
+  "about.changelog": "Voir le journal des modifications",
+  "about.license": "Licence et code open source",
 
   "action.addItem": "Ajouter un article",
   "action.addRoom": "Ajouter une pièce",

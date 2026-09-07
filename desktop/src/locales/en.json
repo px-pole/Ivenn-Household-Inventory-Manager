@@ -16,6 +16,17 @@
   "header.search": "Search inventory",
   "header.notifications": "In-app notifications",
   "settings.language": "Choose language",
+  "action.close": "Close",
+
+  "about.eyebrow": "About the application",
+  "about.title": "About",
+  "about.version": "Version",
+  "about.privacy": "Your inventory data is stored locally on this device. Nothing is sent to external servers.",
+  "about.repository": "GitHub repository",
+  "about.reportIssue": "Report an issue",
+  "about.checkUpdates": "Check for updates",
+  "about.changelog": "View changelog",
+  "about.license": "License and open-source code",
 
   "action.addItem": "Add item",
   "action.addRoom": "Add room",

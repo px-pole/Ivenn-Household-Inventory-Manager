@@ -16,6 +16,17 @@
   "header.search": "Buscar inventario",
   "header.notifications": "Notificaciones en la aplicación",
   "settings.language": "Elegir idioma",
+  "action.close": "Cerrar",
+
+  "about.eyebrow": "Acerca de la aplicación",
+  "about.title": "Acerca de",
+  "about.version": "Versión",
+  "about.privacy": "Sus datos de inventario se almacenan localmente en este dispositivo. Nada se envía a servidores externos.",
+  "about.repository": "Repositorio de GitHub",
+  "about.reportIssue": "Informar de un problema",
+  "about.checkUpdates": "Buscar actualizaciones",
+  "about.changelog": "Ver registro de cambios",
+  "about.license": "Licencia y código de código abierto",
 
   "action.addItem": "Añadir artículo",
   "action.addRoom": "Añadir habitación",

@@ -8,6 +8,7 @@
   "permissions": [
     "core:default",
     "process:default",
-    "updater:default"
+    "updater:default",
+    "shell:allow-open"
   ]
 }

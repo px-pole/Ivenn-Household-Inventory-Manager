@@ -1,31 +1,31 @@
 :root,
 :root[data-theme="light"] {
-  /* Brand and primary colors */
-  --color-primary: #1f6b4f;
-  --color-primary-light: #2a8f68;
-  --color-primary-dark: #164d38;
-  --color-accent: #d85e3d;
+  color-scheme: light;
+  --color-primary: #087f78;
+  --color-primary-light: #0c9d94;
+  --color-primary-dark: #075b5a;
+  --color-accent: #e06b45;
   
   /* Neutral colors */
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f5f5f5;
-  --color-bg-tertiary: #efefef;
-  --color-surface: #fafafa;
-  --color-border: #e0e0e0;
-  --color-text: #1a1a1a;
-  --color-text-secondary: #666666;
-  --color-text-tertiary: #999999;
+  --color-bg: #f1f5f4;
+  --color-bg-secondary: #e7eeec;
+  --color-bg-tertiary: #dbe6e3;
+  --color-surface: #ffffff;
+  --color-border: #d5e1de;
+  --color-text: #142d31;
+  --color-text-secondary: #5a6f71;
+  --color-text-tertiary: #849697;
   --color-on-primary: #ffffff;
   --color-on-accent: #ffffff;
-  --color-primary-soft: #e5f3eb;
-  --color-accent-soft: #fff0eb;
+  --color-primary-soft: #dff3ef;
+  --color-accent-soft: #fff0e9;
   
   /* Sidebar colors */
-  --sidebar-bg: #1a4d3f;
+  --sidebar-bg: #102f35;
   --sidebar-text: #f0f0f0;
-  --sidebar-text-secondary: #b3d9cf;
-  --sidebar-hover: #245449;
-  --sidebar-accent: #00d9a3;
+  --sidebar-text-secondary: #a4c2c0;
+  --sidebar-hover: #1d4b50;
+  --sidebar-accent: #42d9c6;
   
   /* State colors */
   --color-success: #2d8f5e;
@@ -48,32 +48,32 @@
 }
 
 :root[data-theme="dark"] {
-  /* Brand and primary colors */
-  --color-primary: #4a9f7f;
-  --color-primary-light: #5fb399;
-  --color-primary-dark: #2d6455;
-  --color-accent: #ff7a52;
+  color-scheme: dark;
+  --color-primary: #42d9c6;
+  --color-primary-light: #6be5d5;
+  --color-primary-dark: #15998f;
+  --color-accent: #ff8a61;
   
   /* Neutral colors */
-  --color-bg: #1a1a1a;
-  --color-bg-secondary: #2a2a2a;
-  --color-bg-tertiary: #383838;
-  --color-surface: #252525;
-  --color-border: #404040;
-  --color-text: #f5f5f5;
-  --color-text-secondary: #b0b0b0;
-  --color-text-tertiary: #808080;
+  --color-bg: #0e1b20;
+  --color-bg-secondary: #15262b;
+  --color-bg-tertiary: #20353a;
+  --color-surface: #17292f;
+  --color-border: #2b454a;
+  --color-text: #eff8f5;
+  --color-text-secondary: #a9c1c0;
+  --color-text-tertiary: #789193;
   --color-on-primary: #102c22;
   --color-on-accent: #32140c;
   --color-primary-soft: #1f4d36;
   --color-accent-soft: #4a2b21;
   
   /* Sidebar colors */
-  --sidebar-bg: #0f3f33;
+  --sidebar-bg: #091f27;
   --sidebar-text: #e8e8e8;
-  --sidebar-text-secondary: #8fb8ad;
-  --sidebar-hover: #1a5448;
-  --sidebar-accent: #00e6ad;
+  --sidebar-text-secondary: #91b8b7;
+  --sidebar-hover: #123b43;
+  --sidebar-accent: #53e1cf;
   
   /* State colors */
   --color-success: #3fa56e;
@@ -101,7 +101,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", sans-serif;
+  font: 14px/1.5 "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
   font-synthesis: none;

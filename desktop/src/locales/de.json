@@ -16,6 +16,17 @@
   "header.search": "Inventar durchsuchen",
   "header.notifications": "In-App-Benachrichtigungen",
   "settings.language": "Sprache auswählen",
+  "action.close": "Schließen",
+
+  "about.eyebrow": "Über die Anwendung",
+  "about.title": "Über",
+  "about.version": "Version",
+  "about.privacy": "Ihre Inventardaten werden lokal auf diesem Gerät gespeichert. Nichts wird an externe Server gesendet.",
+  "about.repository": "GitHub-Repository",
+  "about.reportIssue": "Problem melden",
+  "about.checkUpdates": "Nach Updates suchen",
+  "about.changelog": "Änderungsprotokoll anzeigen",
+  "about.license": "Lizenz und Open-Source-Code",
 
   "action.addItem": "Gegenstand hinzufügen",
   "action.addRoom": "Raum hinzufügen",

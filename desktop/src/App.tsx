@@ -4,6 +4,7 @@ import {
   Bell,
   Boxes,
   CircleAlert,
+  Info,
   Shapes,
   FolderOpen,
   House,
@@ -14,6 +15,7 @@ import {
   ShieldCheck,
 } from 'lucide-react'
 import { AddItemDialog } from './AddItemDialog'
+import { AboutDialog } from './AboutDialog'
 import { AppSelect } from './AppSelect'
 import {
   fetchCategories,
@@ -46,7 +48,7 @@ type View = 'overview' | 'items' | 'rooms' | 'categories' | 'warranties' | 'data
 function App() {
   const { t, i18n } = useTranslation()
   const activeLanguage = i18n.resolvedLanguage?.split('-')[0] ?? 'en'
-  useTheme() // Initialize theme hook for system preference detection
+  const [theme] = useTheme()
   const [summary, setSummary] = useState<InventorySummary | null>(null)
   const [items, setItems] = useState<InventoryItem[]>([])
   const [rooms, setRooms] = useState<NamedResource[]>([])
@@ -60,6 +62,7 @@ function App() {
   const [showAddDialog, setShowAddDialog] = useState(false)
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null)
   const [showNotifications, setShowNotifications] = useState(false)
+  const [showAboutDialog, setShowAboutDialog] = useState(false)
 
   async function refreshData() {
     const [nextSummary, nextItems, nextRooms, nextCategories, nextWarranties, nextNotifications] = await Promise.all([
@@ -142,8 +145,11 @@ function App() {
     <div className="app-shell">
       <aside className="sidebar">
         <div className="brand-mark">
-          <div className="brand-logo">I</div>
-          <span>{t('app.name')}</span>
+          <img className="brand-logo" src={`/branding/ivenn-${theme}.png`} alt="" />
+          <span className="brand-copy">
+            <strong>{t('app.name')}</strong>
+            <small>{t('app.tagline')}</small>
+          </span>
         </div>
         <nav aria-label="Main navigation">
           <button className={`nav-item ${activeView === 'overview' ? 'active' : ''}`} type="button" onClick={() => setActiveView('overview')}><Boxes size={18} /><span>{t('nav.overview')}</span></button>
@@ -152,6 +158,7 @@ function App() {
           <button className={`nav-item ${activeView === 'categories' ? 'active' : ''}`} type="button" onClick={() => setActiveView('categories')}><Shapes size={18} /><span>{t('nav.categories')}</span></button>
           <button className={`nav-item ${activeView === 'warranties' ? 'active' : ''}`} type="button" onClick={() => setActiveView('warranties')}><ShieldCheck size={18} /><span>{t('nav.warranties')}</span></button>
         </nav>
+        <button className="about-button" type="button" onClick={() => setShowAboutDialog(true)}><Info size={16} /><span>{t('about.title')}</span></button>
         <div className="sidebar-language">
           <AppSelect ariaLabel={t('settings.language')} value={activeLanguage} onChange={(language) => void i18n.changeLanguage(language)} leadingIcon={<Languages size={16} />} options={[{ value: 'en', label: 'English' }, { value: 'de', label: 'Deutsch' }, { value: 'fr', label: 'Français' }, { value: 'es', label: 'Español' }]} />
         </div>
@@ -224,6 +231,7 @@ function App() {
         )}
       </main>
       {showAddDialog && <AddItemDialog rooms={rooms} categories={categories} onClose={() => setShowAddDialog(false)} onCreated={refreshData} />}
+      {showAboutDialog && <AboutDialog onClose={() => setShowAboutDialog(false)} />}
       {selectedItem && <ItemDetailsDialog item={selectedItem} rooms={rooms} categories={categories} onClose={() => setSelectedItem(null)} onSaved={refreshData} onDeleted={async () => { setSelectedItem(null); await refreshData() }} />}
     </div>
   )

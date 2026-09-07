@@ -1,10 +1,12 @@
 import uuid
+from pathlib import Path
+from tempfile import NamedTemporaryFile
 
 from fastapi import APIRouter, File, Form, HTTPException, UploadFile, status
 from fastapi.responses import FileResponse
 
 from app.api.dependencies import CurrentUser, DbSession
-from app.core.storage import FileTooLargeError, UnsupportedFileTypeError, resolve_path
+from app.core.storage import MAX_UPLOAD_SIZE_BYTES, FileTooLargeError, UnsupportedFileTypeError, resolve_path
 from app.schemas.attachment import AttachmentRead, AttachmentType, ReceiptExtractionRead
 from app.services.attachments import (
     ItemNotFoundError,
@@ -21,11 +23,33 @@ from app.services.receipt_extraction import (
 )
 
 router = APIRouter(prefix="/items/{item_id}/attachments", tags=["attachments"])
+preview_router = APIRouter(prefix="/attachments", tags=["attachments"])
 
 
 def _ensure_owned_item(db: DbSession, item_id: uuid.UUID, current_user: CurrentUser) -> None:
     if get_item(db, item_id, current_user.id) is None:
         raise HTTPException(status_code=404, detail="Item not found")
+
+
+@preview_router.post("/extract", response_model=ReceiptExtractionRead)
+async def preview_receipt_extraction(_current_user: CurrentUser, file: UploadFile = File(...)) -> ReceiptExtractionRead:
+    content = await file.read()
+    if len(content) > MAX_UPLOAD_SIZE_BYTES:
+        raise HTTPException(status_code=413, detail="File exceeds the maximum allowed size of 10 MB")
+
+    temporary_path: Path | None = None
+    try:
+        with NamedTemporaryFile(suffix=Path(file.filename or "receipt").suffix, delete=False) as temporary_file:
+            temporary_file.write(content)
+            temporary_path = Path(temporary_file.name)
+        return extract_receipt(temporary_path, file.content_type or "application/octet-stream")
+    except ExtractionUnsupportedError as exc:
+        raise HTTPException(status_code=415, detail=str(exc)) from exc
+    except ExtractionUnavailableError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc
+    finally:
+        if temporary_path is not None:
+            temporary_path.unlink(missing_ok=True)
 
 
 @router.post("", response_model=AttachmentRead, status_code=status.HTTP_201_CREATED)

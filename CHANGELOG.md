@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.2.0 - 2026-09-07
+
+### Added
+
+- Added Ivenn branding and updated desktop application icons.
+- Added receipt OCR suggestions and warranty-document attachments during item creation.
+- Added localized desktop interface updates and refreshed inventory views.
+
+### Changed
+
+- Updated attachment, notification, and API behavior with focused test coverage.
+- Updated desktop dependencies and cross-platform packaging configuration.
+- Renamed the GitHub repository to `Ivenn-Household-Inventory-Manager`.
+
 ## 0.1.21 - 2026-09-04
 
 ### Release

@@ -83,6 +83,7 @@ export type InAppNotification = {
   title: string
   message: string
   is_read: boolean
+  is_dismissed: boolean
   created_at: string
 }
 
@@ -184,6 +185,12 @@ export function uploadAttachment(itemId: string, file: File, attachmentType: Att
 
 export function extractAttachment(itemId: string, attachmentId: string) {
   return request<ReceiptExtraction>(`/items/${itemId}/attachments/${attachmentId}/extract`, { method: 'POST' })
+}
+
+export function extractMedia(file: File) {
+  const body = new FormData()
+  body.append('file', file)
+  return request<ReceiptExtraction>('/attachments/extract', { method: 'POST', body })
 }
 
 export async function deleteAttachment(itemId: string, attachmentId: string) {
