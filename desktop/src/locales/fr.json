@@ -11,6 +11,7 @@
   "nav.rooms": "Pièces",
   "nav.categories": "Catégories",
   "nav.warranties": "Garanties",
+  "nav.backupRestore": "Sauvegarde et restauration",
 
   "header.eyebrow": "Inventaire domestique",
   "header.search": "Rechercher l'inventaire",
@@ -43,6 +44,7 @@
   "section.rooms": "Pièces",
   "section.categories": "Catégories",
   "section.warranties": "Garanties",
+  "section.backupRestore": "Sauvegarde et restauration",
 
   "stats.totalItems": "Nombre total d'articles",
   "stats.totalItemsDesc": "Tout enregistré",

@@ -11,6 +11,7 @@
   "nav.rooms": "Räume",
   "nav.categories": "Kategorien",
   "nav.warranties": "Garantien",
+  "nav.backupRestore": "Sichern & wiederherstellen",
 
   "header.eyebrow": "Haushaltsinventar",
   "header.search": "Inventar durchsuchen",
@@ -43,6 +44,7 @@
   "section.rooms": "Räume",
   "section.categories": "Kategorien",
   "section.warranties": "Garantien",
+  "section.backupRestore": "Sichern & wiederherstellen",
 
   "stats.totalItems": "Gesamte Gegenstände",
   "stats.totalItemsDesc": "Alles erfasst",

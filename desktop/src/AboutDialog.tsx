@@ -50,7 +50,6 @@ export function AboutDialog({ onClose }: Props) {
             <img className="about-logo" src={`/branding/ivenn-${theme}.png`} alt="" />
             <div><h3>{t('app.name')}</h3><p>{t('app.tagline')}</p></div>
           </div>
-          <div className="about-version"><span>{t('about.version')}</span><strong>v{packageInfo.version}</strong></div>
           <p className="about-privacy"><ShieldCheck size={17} />{t('about.privacy')}</p>
           <div className="about-links">
             <button type="button" onClick={() => void openLink(links.repository)}><GitBranch size={17} />{t('about.repository')}<ExternalLink size={14} /></button>
@@ -59,6 +58,7 @@ export function AboutDialog({ onClose }: Props) {
             <button type="button" onClick={() => void openLink(links.changelog)}><BookOpen size={17} />{t('about.changelog')}<ExternalLink size={14} /></button>
             <button type="button" onClick={() => void openLink(links.license)}><Scale size={17} />{t('about.license')}<ExternalLink size={14} /></button>
           </div>
+          <div className="about-version"><span>{t('about.version')}</span><strong>v{packageInfo.version}</strong></div>
         </div>
       </section>
     </div>

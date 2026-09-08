@@ -11,6 +11,7 @@
   "nav.rooms": "Rooms",
   "nav.categories": "Categories",
   "nav.warranties": "Warranties",
+  "nav.backupRestore": "Backup & restore",
 
   "header.eyebrow": "Household inventory",
   "header.search": "Search inventory",
@@ -43,6 +44,7 @@
   "section.rooms": "Rooms",
   "section.categories": "Categories",
   "section.warranties": "Warranties",
+  "section.backupRestore": "Backup & restore",
 
   "stats.totalItems": "Total items",
   "stats.totalItemsDesc": "Everything recorded",

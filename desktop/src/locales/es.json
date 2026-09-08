@@ -11,6 +11,7 @@
   "nav.rooms": "Habitaciones",
   "nav.categories": "Categorías",
   "nav.warranties": "Garantías",
+  "nav.backupRestore": "Copia de seguridad y restauración",
 
   "header.eyebrow": "Inventario del hogar",
   "header.search": "Buscar inventario",
@@ -43,6 +44,7 @@
   "section.rooms": "Habitaciones",
   "section.categories": "Categorías",
   "section.warranties": "Garantías",
+  "section.backupRestore": "Copia de seguridad y restauración",
 
   "stats.totalItems": "Artículos totales",
   "stats.totalItemsDesc": "Todo registrado",

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
+  DatabaseBackup,
   Bell,
   Boxes,
   CircleAlert,
@@ -157,6 +158,7 @@ function App() {
           <button className={`nav-item ${activeView === 'rooms' ? 'active' : ''}`} type="button" onClick={() => setActiveView('rooms')}><House size={18} /><span>{t('nav.rooms')}</span></button>
           <button className={`nav-item ${activeView === 'categories' ? 'active' : ''}`} type="button" onClick={() => setActiveView('categories')}><Shapes size={18} /><span>{t('nav.categories')}</span></button>
           <button className={`nav-item ${activeView === 'warranties' ? 'active' : ''}`} type="button" onClick={() => setActiveView('warranties')}><ShieldCheck size={18} /><span>{t('nav.warranties')}</span></button>
+          <button className={`nav-item ${activeView === 'data' ? 'active' : ''}`} type="button" onClick={() => setActiveView('data')}><DatabaseBackup size={18} /><span>{t('nav.backupRestore')}</span></button>
         </nav>
         <button className="about-button" type="button" onClick={() => setShowAboutDialog(true)}><Info size={16} /><span>{t('about.title')}</span></button>
         <div className="sidebar-language">
@@ -181,7 +183,7 @@ function App() {
               {activeView === 'rooms' && t('section.rooms')}
               {activeView === 'categories' && t('section.categories')}
               {activeView === 'warranties' && t('section.warranties')}
-              {activeView === 'data' && 'Data & exports'}
+              {activeView === 'data' && t('section.backupRestore')}
             </h1>
           </div>
           <div className="toolbar">
