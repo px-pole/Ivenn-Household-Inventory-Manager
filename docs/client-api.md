@@ -134,6 +134,29 @@ GET /api/v1/warranties
 
 Each record includes item name/status and `days_until_expiry`; negative values indicate expired coverage. Upcoming reminder windows remain available from `/api/v1/warranties/expiring?within=30|60|90`.
 
+## Installments
+
+An installment payment plan is one-to-one with an inventory item:
+
+```text
+POST   /api/v1/items/{item_id}/installment
+GET    /api/v1/items/{item_id}/installment
+PATCH  /api/v1/items/{item_id}/installment
+DELETE /api/v1/items/{item_id}/installment
+```
+
+`total_installments`, `payment_day` (day of month, 1-31), and `start_date` (date of the first installment) are
+required when creating a plan. `paid_installments` and `amount_per_installment` are optional. Reads and writes
+return `remaining_installments` and `last_payment_date`, which are computed from the stored fields.
+
+The complete user-scoped installment dashboard is available from:
+
+```text
+GET /api/v1/installments
+```
+
+Each record includes item name/status alongside the paid, remaining, and last-payment details.
+
 ## In-app notifications
 
 Warranty reminders are stored and displayed only inside Inventory Vault. Reading the inbox synchronizes current 90, 60, and 30-day warranty thresholds and deduplicates each warranty/window combination.

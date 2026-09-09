@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Added installment tracking: set up the number of installments and a payment day when adding an item, and
+  review paid/remaining installments and the last payment date from the new Installments view.
+
 ## 0.2.0 - 2026-09-07
 
 ### Added
