@@ -6,6 +6,7 @@ from app.api.routes.attachments import router as attachments_router
 from app.api.routes.auth import router as auth_router
 from app.api.routes.categories import router as categories_router
 from app.api.routes.health import router as health_router
+from app.api.routes.installments import router as installments_router
 from app.api.routes.items import router as items_router
 from app.api.routes.maintenance import router as maintenance_router
 from app.api.routes.notifications import router as notifications_router
@@ -34,6 +35,7 @@ app.include_router(items_router)
 app.include_router(attachment_preview_router)
 app.include_router(attachments_router)
 app.include_router(warranties_router)
+app.include_router(installments_router)
 app.include_router(reports_router)
 app.include_router(maintenance_router)
 app.include_router(notifications_router)
@@ -47,6 +49,7 @@ for router in (
     attachment_preview_router,
     attachments_router,
     warranties_router,
+    installments_router,
     reports_router,
     maintenance_router,
     notifications_router,
