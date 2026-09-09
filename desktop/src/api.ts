@@ -64,6 +64,24 @@ export type WarrantyOverview = Warranty & {
   days_until_expiry: number
 }
 
+export type Installment = {
+  id: string
+  item_id: string
+  total_installments: number
+  paid_installments: number
+  remaining_installments: number
+  payment_day: number
+  start_date: string
+  amount_per_installment: string | null
+  notes: string | null
+  last_payment_date: string
+}
+
+export type InstallmentOverview = Installment & {
+  item_name: string
+  item_status: InventoryItem['status']
+}
+
 export type GeneratedFile = {
   file_name: string
   download_path: string
@@ -118,6 +136,10 @@ export function fetchWarranties(signal?: AbortSignal) {
   return request<WarrantyOverview[]>('/warranties', { signal })
 }
 
+export function fetchInstallments(signal?: AbortSignal) {
+  return request<InstallmentOverview[]>('/installments', { signal })
+}
+
 export function fetchNotifications(signal?: AbortSignal) {
   return request<InAppNotification[]>('/notifications', { signal })
 }
@@ -169,6 +191,46 @@ export type WarrantyInput = {
   provider: string | null
   expires_on: string
   policy_number: string | null
+  notes: string | null
+}
+
+export async function fetchInstallment(itemId: string, signal?: AbortSignal) {
+  const response = await fetch(`${API_URL}/items/${itemId}/installment`, { signal })
+  if (response.status === 404) return null
+  if (!response.ok) throw new Error(`Request failed with status ${response.status}`)
+  return response.json() as Promise<Installment>
+}
+
+export function createInstallment(itemId: string, input: InstallmentInput) {
+  return request<Installment>(`/items/${itemId}/installment`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
+}
+
+export function updateInstallment(itemId: string, input: Partial<InstallmentInput>) {
+  return request<Installment>(`/items/${itemId}/installment`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(input),
+  })
+}
+
+export async function deleteInstallment(itemId: string) {
+  const response = await fetch(`${API_URL}/items/${itemId}/installment`, { method: 'DELETE' })
+  if (!response.ok) {
+    const body = await response.json().catch(() => null) as { detail?: string } | null
+    throw new Error(body?.detail ?? `Request failed with status ${response.status}`)
+  }
+}
+
+export type InstallmentInput = {
+  total_installments: number
+  paid_installments?: number
+  payment_day: number
+  start_date: string
+  amount_per_installment: string | null
   notes: string | null
 }
 
