@@ -4,6 +4,7 @@ import { AttachmentPanel } from './AttachmentPanel'
 import { deleteItem, updateItem, type InventoryItem, type NamedResource } from './api'
 import { AppSelect } from './AppSelect'
 import { WarrantyPanel } from './WarrantyPanel'
+import { InstallmentPanel } from './InstallmentPanel'
 
 type Props = {
   item: InventoryItem
@@ -101,6 +102,7 @@ export function ItemDetailsDialog({ item, rooms, categories, onClose, onSaved, o
             }))}
           />
           <WarrantyPanel itemId={item.id} onChanged={onSaved} />
+          <InstallmentPanel itemId={item.id} onChanged={onSaved} />
           {error && <p className="form-error" role="alert">{error}</p>}
           <footer className="dialog-actions">
             {confirmDelete ? <><button className="danger-action" type="button" disabled={saving} onClick={() => void remove()}><Trash2 size={17} />Confirm delete</button><button className="text-button" type="button" onClick={() => setConfirmDelete(false)}>Keep item</button></> : <button className="delete-item-button" type="button" onClick={() => setConfirmDelete(true)}><Trash2 size={17} />Delete item</button>}

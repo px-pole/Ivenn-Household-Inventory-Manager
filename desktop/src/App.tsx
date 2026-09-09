@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   DatabaseBackup,
+  Banknote,
   Bell,
   Boxes,
   CircleAlert,
@@ -20,6 +21,7 @@ import { AboutDialog } from './AboutDialog'
 import { AppSelect } from './AppSelect'
 import {
   fetchCategories,
+  fetchInstallments,
   fetchItems,
   fetchNotifications,
   fetchRooms,
@@ -28,6 +30,7 @@ import {
   type InventoryItem,
   type InventorySummary,
   type InAppNotification,
+  type InstallmentOverview,
   type NamedResource,
   type WarrantyOverview,
 } from './api'
@@ -35,6 +38,7 @@ import { ItemsView } from './ItemsView'
 import { ItemDetailsDialog } from './ItemDetailsDialog'
 import { RoomsView } from './RoomsView'
 import { WarrantiesView } from './WarrantiesView'
+import { InstallmentsView } from './InstallmentsView'
 import { DataView } from './DataView'
 import { CategoriesView } from './CategoriesView'
 import { NotificationsPanel } from './NotificationsPanel'
@@ -44,7 +48,7 @@ import './App.css'
 const STARTUP_ATTEMPTS = 60
 const STARTUP_RETRY_MS = 250
 
-type View = 'overview' | 'items' | 'rooms' | 'categories' | 'warranties' | 'data'
+type View = 'overview' | 'items' | 'rooms' | 'categories' | 'warranties' | 'installments' | 'data'
 
 function App() {
   const { t, i18n } = useTranslation()
@@ -55,6 +59,7 @@ function App() {
   const [rooms, setRooms] = useState<NamedResource[]>([])
   const [categories, setCategories] = useState<NamedResource[]>([])
   const [warranties, setWarranties] = useState<WarrantyOverview[]>([])
+  const [installments, setInstallments] = useState<InstallmentOverview[]>([])
   const [notifications, setNotifications] = useState<InAppNotification[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -66,12 +71,13 @@ function App() {
   const [showAboutDialog, setShowAboutDialog] = useState(false)
 
   async function refreshData() {
-    const [nextSummary, nextItems, nextRooms, nextCategories, nextWarranties, nextNotifications] = await Promise.all([
+    const [nextSummary, nextItems, nextRooms, nextCategories, nextWarranties, nextInstallments, nextNotifications] = await Promise.all([
       fetchSummary(),
       fetchItems(),
       fetchRooms(),
       fetchCategories(),
       fetchWarranties(),
+      fetchInstallments(),
       fetchNotifications(),
     ])
     setSummary(nextSummary)
@@ -79,6 +85,7 @@ function App() {
     setRooms(nextRooms)
     setCategories(nextCategories)
     setWarranties(nextWarranties)
+    setInstallments(nextInstallments)
     setNotifications(nextNotifications)
   }
 
@@ -108,6 +115,7 @@ function App() {
             fetchRooms(controller.signal),
             fetchCategories(controller.signal),
             fetchWarranties(controller.signal),
+            fetchInstallments(controller.signal),
             fetchNotifications(controller.signal),
           ])
         } catch (requestError) {
@@ -120,12 +128,13 @@ function App() {
     }
 
     connectToBackend()
-      .then(([nextSummary, nextItems, nextRooms, nextCategories, nextWarranties, nextNotifications]) => {
+      .then(([nextSummary, nextItems, nextRooms, nextCategories, nextWarranties, nextInstallments, nextNotifications]) => {
         setSummary(nextSummary)
         setItems(nextItems)
         setRooms(nextRooms)
         setCategories(nextCategories)
         setWarranties(nextWarranties)
+        setInstallments(nextInstallments)
         setNotifications(nextNotifications)
       })
       .catch((requestError: unknown) => {
@@ -158,6 +167,7 @@ function App() {
           <button className={`nav-item ${activeView === 'rooms' ? 'active' : ''}`} type="button" onClick={() => setActiveView('rooms')}><House size={18} /><span>{t('nav.rooms')}</span></button>
           <button className={`nav-item ${activeView === 'categories' ? 'active' : ''}`} type="button" onClick={() => setActiveView('categories')}><Shapes size={18} /><span>{t('nav.categories')}</span></button>
           <button className={`nav-item ${activeView === 'warranties' ? 'active' : ''}`} type="button" onClick={() => setActiveView('warranties')}><ShieldCheck size={18} /><span>{t('nav.warranties')}</span></button>
+          <button className={`nav-item ${activeView === 'installments' ? 'active' : ''}`} type="button" onClick={() => setActiveView('installments')}><Banknote size={18} /><span>{t('nav.installments')}</span></button>
           <button className={`nav-item ${activeView === 'data' ? 'active' : ''}`} type="button" onClick={() => setActiveView('data')}><DatabaseBackup size={18} /><span>{t('nav.backupRestore')}</span></button>
         </nav>
         <button className="about-button" type="button" onClick={() => setShowAboutDialog(true)}><Info size={16} /><span>{t('about.title')}</span></button>
@@ -183,6 +193,7 @@ function App() {
               {activeView === 'rooms' && t('section.rooms')}
               {activeView === 'categories' && t('section.categories')}
               {activeView === 'warranties' && t('section.warranties')}
+              {activeView === 'installments' && t('section.installments')}
               {activeView === 'data' && t('section.backupRestore')}
             </h1>
           </div>
@@ -228,6 +239,8 @@ function App() {
           <CategoriesView categories={categories} items={items} loading={loading} onChanged={refreshData} />
         ) : activeView === 'warranties' ? (
           <WarrantiesView warranties={warranties} loading={loading} onSelectItem={(itemId) => { const item = items.find((candidate) => candidate.id === itemId); if (item) setSelectedItem(item) }} />
+        ) : activeView === 'installments' ? (
+          <InstallmentsView installments={installments} loading={loading} onSelectItem={(itemId) => { const item = items.find((candidate) => candidate.id === itemId); if (item) setSelectedItem(item) }} />
         ) : (
           <DataView />
         )}

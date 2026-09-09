@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { FileText, ImagePlus, Plus, ScanText, ShieldCheck, Trash2, X } from 'lucide-react'
+import { Banknote, FileText, ImagePlus, Plus, ScanText, ShieldCheck, Trash2, X } from 'lucide-react'
 import { AppSelect } from './AppSelect'
-import { createItem, extractMedia, uploadAttachment, type Attachment, type FieldSuggestion, type NamedResource, type ReceiptExtraction } from './api'
+import { createInstallment, createItem, extractMedia, uploadAttachment, type Attachment, type FieldSuggestion, type NamedResource, type ReceiptExtraction } from './api'
 
 type Props = {
   rooms: NamedResource[]
@@ -20,6 +20,8 @@ const initialForm = {
   estimatedValue: '',
   purchaseDate: '',
 }
+
+const initialInstallmentForm = { totalInstallments: '', paymentDay: '', startDate: '', amountPerInstallment: '' }
 
 type StagedMedia = {
   id: string
@@ -44,6 +46,8 @@ export function AddItemDialog({ rooms, categories, onClose, onCreated }: Props) 
   const [saving, setSaving] = useState(false)
   const [created, setCreated] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [hasInstallments, setHasInstallments] = useState(false)
+  const [installmentForm, setInstallmentForm] = useState(initialInstallmentForm)
 
   useEffect(() => {
     function closeOnEscape(event: KeyboardEvent) {
@@ -56,6 +60,10 @@ export function AddItemDialog({ rooms, categories, onClose, onCreated }: Props) 
 
   function update(field: keyof typeof form, value: string) {
     setForm((current) => ({ ...current, [field]: value }))
+  }
+
+  function updateInstallmentField(field: keyof typeof installmentForm, value: string) {
+    setInstallmentForm((current) => ({ ...current, [field]: value }))
   }
 
   async function scanReceipt(file: File) {
@@ -97,6 +105,15 @@ export function AddItemDialog({ rooms, categories, onClose, onCreated }: Props) 
 
     try {
       const item = await createItem(form, rooms, categories)
+      if (hasInstallments) {
+        await createInstallment(item.id, {
+          total_installments: Number(installmentForm.totalInstallments),
+          payment_day: Number(installmentForm.paymentDay),
+          start_date: installmentForm.startDate,
+          amount_per_installment: installmentForm.amountPerInstallment.trim() || null,
+          notes: null,
+        })
+      }
       const uploadResults = await Promise.allSettled(media.map((entry) => uploadAttachment(item.id, entry.file, entry.attachmentType)))
       await onCreated()
       if (uploadResults.some((result) => result.status === 'rejected')) {
@@ -152,10 +169,24 @@ export function AddItemDialog({ rooms, categories, onClose, onCreated }: Props) 
             <label>Estimated value<input min="0" step="0.01" type="number" value={form.estimatedValue} onChange={(event) => update('estimatedValue', event.target.value)} /></label>
             <label>Purchase date<input type="date" value={form.purchaseDate} onChange={(event) => update('purchaseDate', event.target.value)} /></label>
           </div>
+          <section className="add-item-installments" aria-labelledby="add-item-installments-title">
+            <label className="installment-toggle">
+              <input type="checkbox" disabled={created} checked={hasInstallments} onChange={(event) => setHasInstallments(event.target.checked)} />
+              <span id="add-item-installments-title"><Banknote size={16} />This item is paid in installments</span>
+            </label>
+            {hasInstallments && (
+              <div className="form-grid">
+                <label>Number of installments<input required min={1} type="number" value={installmentForm.totalInstallments} onChange={(event) => updateInstallmentField('totalInstallments', event.target.value)} /></label>
+                <label>Payment day of month<input required min={1} max={31} type="number" value={installmentForm.paymentDay} onChange={(event) => updateInstallmentField('paymentDay', event.target.value)} /></label>
+                <label>First payment date<input required type="date" value={installmentForm.startDate} onChange={(event) => updateInstallmentField('startDate', event.target.value)} /></label>
+                <label>Amount per installment<input min="0" step="0.01" type="number" value={installmentForm.amountPerInstallment} onChange={(event) => updateInstallmentField('amountPerInstallment', event.target.value)} /></label>
+              </div>
+            )}
+          </section>
           {error && <p className="form-error" role="alert">{error}</p>}
           <footer className="dialog-actions">
             <button className="text-button" type="button" onClick={onClose}>{created ? 'Close' : 'Cancel'}</button>
-            <button className="primary-button" type="submit" disabled={saving || created}><Plus size={18} />{saving ? 'Adding...' : created ? 'Item added' : 'Add item'}</button>
+            <button className="primary-button" type="submit" disabled={saving || created || (hasInstallments && (!installmentForm.totalInstallments || !installmentForm.paymentDay || !installmentForm.startDate))}><Plus size={18} />{saving ? 'Adding...' : created ? 'Item added' : 'Add item'}</button>
           </footer>
         </form>
       </section>
