@@ -29,6 +29,9 @@ class HouseholdItem(Base):
     warranty: Mapped["Warranty | None"] = relationship(
         back_populates="item", uselist=False, cascade="all, delete-orphan"
     )
+    installment: Mapped["Installment | None"] = relationship(
+        back_populates="item", uselist=False, cascade="all, delete-orphan"
+    )
     attachments: Mapped[list["Attachment"]] = relationship(
         back_populates="item", cascade="all, delete-orphan"
     )
