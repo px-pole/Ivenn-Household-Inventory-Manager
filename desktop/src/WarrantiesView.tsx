@@ -32,13 +32,21 @@ export function WarrantiesView({ warranties, loading, onSelectItem }: Props) {
           <div className="empty-state"><div className="empty-icon"><ShieldCheck size={27} /></div><h3>No warranties recorded</h3><p>Open an item to add provider, policy, and expiry details.</p></div>
         ) : (
           <div className="warranty-list">
+            <div className="warranty-list-header warranty-list-header--warranties" aria-hidden="true">
+              <span></span>
+              <span>Item / Provider</span>
+              <span>Expiry Date</span>
+              <span>Policy</span>
+              <span>Status</span>
+            </div>
             {warranties.map((warranty) => {
               const state = coverageState(warranty.days_until_expiry)
               return (
-                <button className="warranty-row" type="button" key={warranty.id} onClick={() => onSelectItem(warranty.item_id)}>
+                <button className="warranty-row warranty-row--warranty" type="button" key={warranty.id} onClick={() => onSelectItem(warranty.item_id)}>
                   <div className={`warranty-mark ${state.className}`}><ShieldCheck size={19} /></div>
                   <div><strong>{warranty.item_name}</strong><span>{warranty.provider || 'Provider not specified'}</span></div>
-                  <div><strong>{new Date(`${warranty.expires_on}T00:00:00`).toLocaleDateString()}</strong><span>{warranty.policy_number || 'No reference number'}</span></div>
+                  <div><strong>{new Date(`${warranty.expires_on}T00:00:00`).toLocaleDateString()}</strong></div>
+                  <div><span>{warranty.policy_number || 'No reference number'}</span></div>
                   <span className={`warranty-badge ${state.className}`}>{state.label}</span>
                 </button>
               )

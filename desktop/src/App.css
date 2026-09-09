@@ -1289,6 +1289,7 @@ textarea:focus-visible {
 
 .rooms-view,
 .warranties-view,
+.installments-view,
 .data-view {
   display: grid;
   gap: 20px;
@@ -1321,6 +1322,7 @@ textarea:focus-visible {
 .rooms-heading,
 .attachment-heading,
 .warranty-heading,
+.installment-heading,
 .data-intro {
   display: flex;
   align-items: flex-start;
@@ -1347,6 +1349,7 @@ textarea:focus-visible {
 .attachment-upload,
 .attachment-row,
 .warranty-summary,
+.installment-summary,
 .restore-panel {
   display: flex;
   align-items: center;
@@ -1390,6 +1393,7 @@ textarea:focus-visible {
 .attachment-panel,
 .data-action,
 .warranty-panel,
+.installment-panel,
 .restore-panel {
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -1412,6 +1416,7 @@ textarea:focus-visible {
 
 .room-icon,
 .warranty-mark,
+.installment-mark,
 .data-icon {
   width: 38px;
   height: 38px;
@@ -1433,10 +1438,41 @@ textarea:focus-visible {
 .warranty-list-panel .section-heading > span { color: var(--color-text-secondary); font-size: 12px; }
 .warranty-list { display: grid; }
 
+.warranty-list-header {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 42px minmax(180px, 1fr) 160px 92px;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 15px;
+  color: var(--color-text-secondary);
+  background-color: var(--color-bg-secondary);
+  border-bottom: 1px solid var(--color-border);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.warranty-list-header > span:nth-child(3),
+.warranty-row > div:nth-child(3) { justify-self: start; }
+
+.warranty-list-header > span:nth-child(4),
+.warranty-row > .warranty-badge { justify-self: end; }
+
+.warranty-list-header.warranty-list-header--warranties,
+.warranty-row.warranty-row--warranty {
+  grid-template-columns: 42px minmax(180px, 1fr) 120px minmax(100px, 0.45fr) 92px;
+}
+
+.warranty-list-header--warranties > span:nth-child(4),
+.warranty-row--warranty > div:nth-child(4) { justify-self: start; }
+
+.warranty-list-header--warranties > span:nth-child(5) { justify-self: end; }
+
 .warranty-row {
   min-width: 0;
   display: grid;
-  grid-template-columns: 42px minmax(140px, 1fr) minmax(130px, 0.8fr) auto;
+  grid-template-columns: 42px minmax(180px, 1fr) 160px 92px;
   align-items: center;
   gap: 12px;
   padding: 13px 15px;
@@ -1453,7 +1489,13 @@ textarea:focus-visible {
 .warranty-row span { color: var(--color-text-secondary); font-size: 11px; overflow-wrap: anywhere; }
 
 .attachment-panel,
-.warranty-panel { padding: 15px; }
+.warranty-panel,
+.installment-panel { padding: 15px; }
+.installment-summary > div:nth-child(2) { min-width: 0; flex: 1; display: grid; gap: 3px; }
+.installment-summary small { color: var(--color-text-secondary); font-size: 11px; }
+.installment-mark.covered { color: var(--color-success, #1a7f37); }
+.installment-toggle { display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 10px; }
+.installment-toggle input { width: 16px; height: 16px; }
 .attachment-heading { margin-bottom: 12px; }
 .attachment-list { display: grid; gap: 8px; }
 .attachment-row { min-width: 0; padding: 9px; background-color: var(--color-bg-secondary); border-radius: 6px; }
@@ -1563,6 +1605,7 @@ textarea:focus-visible {
   .add-item-media-heading,
   .attachment-heading,
   .warranty-heading,
+  .installment-heading,
   .data-intro {
     align-items: stretch;
     flex-wrap: wrap;
